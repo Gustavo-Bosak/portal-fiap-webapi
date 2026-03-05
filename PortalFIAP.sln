@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFIAP", "PortalFIAP\PortalFIAP.csproj", "{15E25337-F0F2-4D93-8F0E-721E685F0808}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFIAP.API", "PortalFIAP.API\PortalFIAP.API.csproj", "{15E25337-F0F2-4D93-8F0E-721E685F0808}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFIAP.Domain", "PortalFIAP.Domain\PortalFIAP.Domain.csproj", "{1CF935A4-A21F-4A6C-9EB4-79CB7A8915C7}"
 EndProject
