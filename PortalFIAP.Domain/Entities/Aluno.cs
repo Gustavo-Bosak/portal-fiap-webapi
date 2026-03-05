@@ -4,14 +4,14 @@ namespace PortalFIAP.Domain.Entities;
 
 public class Aluno : Pessoa
 {
-    public List<string> Matriculas { get; private set;}
+    public List<Matricula> Matriculas { get; private set;}
 
     public Aluno(string nome,
             string email,
             DateOnly dataNascimento,
             string telefone,
             string endereco,
-            List<string> matriculas)
+            List<Matricula> matriculas)
         //Superclasse Pessoa
         : base(nome, email, dataNascimento, telefone, endereco)
     {
