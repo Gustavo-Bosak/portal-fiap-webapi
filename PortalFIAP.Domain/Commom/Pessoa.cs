@@ -8,7 +8,6 @@ public abstract class Pessoa : BaseEntity
     public string Telefone { get; private set; }
     public string Endereco { get; private set; }
     
-
     public Pessoa(string nome, string email, DateOnly dataNascimento, string telefone, string endereco)
     {
         DefinirNome(nome);
