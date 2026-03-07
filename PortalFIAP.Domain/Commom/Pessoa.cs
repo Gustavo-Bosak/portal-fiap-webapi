@@ -60,7 +60,7 @@ public abstract class Pessoa : BaseEntity
     public void DefinirTelefone(string novoTelefone)
     {
         if (string.IsNullOrWhiteSpace(novoTelefone))
-            throw new Exception("Telefone nao pode estar vazio.");
+            throw new Exception("Telefone não pode estar vazio.");
             
         Telefone = novoTelefone;
     }
