@@ -1,3 +1,6 @@
+using PortalFIAP.Domain.Entities; // Adicionado para enxergar a classe Endereco
+using System;
+
 namespace PortalFIAP.Domain.Commom;
 
 public abstract class Pessoa : BaseEntity
@@ -6,15 +9,15 @@ public abstract class Pessoa : BaseEntity
     public string Email { get; private set; }
     private DateOnly DataNasc { get; set; }
     public string Telefone { get; private set; }
-    public string Endereco { get; private set; }
+    public Endereco Endereco { get; private set; } // Alterado de string para Endereco
     
-    public Pessoa(string nome, string email, DateOnly dataNascimento, string telefone, string endereco)
+    public Pessoa(string nome, string email, DateOnly dataNascimento, string telefone, Endereco endereco)
     {
         DefinirNome(nome);
         DefinirEmail(email);
         DefinirDataNasc(dataNascimento);
         DefinirTelefone(telefone);
-        Endereco = endereco;
+        DefinirEndereco(endereco);
     }
     
     //Funcao Definir/Validar nome
@@ -58,12 +61,19 @@ public abstract class Pessoa : BaseEntity
 
     //Funcao Definir/Validar Telefone
     public void DefinirTelefone(string novoTelefone)
-    {
+    { 
         if (string.IsNullOrWhiteSpace(novoTelefone))
             throw new Exception("Telefone não pode estar vazio.");
             
         Telefone = novoTelefone;
     }
-    
-    
+
+    //Funcao p validar e definir Endereco
+    public void DefinirEndereco(Endereco novoEndereco)
+    {
+        if (novoEndereco is null)
+            throw new ArgumentNullException(nameof(novoEndereco), "O endereço não pode ser nulo.");
+
+        Endereco = novoEndereco;
+    }
 }

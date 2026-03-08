@@ -10,7 +10,7 @@ public class Professor : Pessoa
             string email,
             DateOnly dataNascimento,
             string telefone,
-            string endereco,
+            Endereco endereco,
             List<Turma> turmas)
             //Superclasse Pessoa
             : base(nome, email, dataNascimento, telefone, endereco)
