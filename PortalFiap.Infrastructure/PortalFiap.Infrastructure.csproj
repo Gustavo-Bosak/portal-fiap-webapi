@@ -8,6 +8,11 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.14" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.14" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PortalFiap.Domain\PortalFiap.Domain.csproj" />
     </ItemGroup>
 
 </Project>

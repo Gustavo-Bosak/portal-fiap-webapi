@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using PortalFiap.Infrastructure.Persistence;
+
 namespace PortalFiap;
 
 public class Program
@@ -9,6 +12,15 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+
+        
+        builder.Services.AddDbContext<PortalFiapContext>(options =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("PortalFiapSQLiteConnection");
+                options.UseSqlite(connectionString);
+            }
+        );
+        
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
