@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.PortalFIAP.iml
+/.idea.PortalFiap.iml
 /contentModel.xml
 /projectSettingsUpdater.xml
 /modules.xml

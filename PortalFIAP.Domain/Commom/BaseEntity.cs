@@ -1,4 +1,4 @@
-namespace PortalFIAP.Domain.Commom;
+namespace PortalFiap.Domain.Commom;
 
 public abstract class BaseEntity
 {

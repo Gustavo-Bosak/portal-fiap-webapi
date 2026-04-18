@@ -1,7 +1,7 @@
-using PortalFIAP.Domain.Entities; // Adicionado para enxergar a classe Endereco
+using PortalFiap.Domain.Entities; // Adicionado para enxergar a classe Endereco
 using System;
 
-namespace PortalFIAP.Domain.Commom;
+namespace PortalFiap.Domain.Commom;
 
 public abstract class Pessoa : BaseEntity
 {

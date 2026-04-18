@@ -1,4 +1,4 @@
-namespace PortalFIAP;
+namespace PortalFiap;
 
 public class WeatherForecast
 {

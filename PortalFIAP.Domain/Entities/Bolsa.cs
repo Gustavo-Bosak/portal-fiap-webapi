@@ -1,7 +1,7 @@
-using PortalFIAP.Domain.Commom;
+using PortalFiap.Domain.Commom;
 using System;
 
-namespace PortalFIAP.Domain.Entities
+namespace PortalFiap.Domain.Entities
 {
     public class Bolsa : BaseEntity
     {

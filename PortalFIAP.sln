@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFIAP.API", "PortalFIAP.API\PortalFIAP.API.csproj", "{15E25337-F0F2-4D93-8F0E-721E685F0808}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFiap.API", "PortalFiap.API\PortalFiap.API.csproj", "{D50968F5-861A-4DD6-AD96-7AC70F25182B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFIAP.Domain", "PortalFIAP.Domain\PortalFIAP.Domain.csproj", "{1CF935A4-A21F-4A6C-9EB4-79CB7A8915C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFiap.Domain", "PortalFiap.Domain\PortalFiap.Domain.csproj", "{BF3B84E8-A308-4A5E-AB7D-9CF5DE41EF45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,13 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15E25337-F0F2-4D93-8F0E-721E685F0808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15E25337-F0F2-4D93-8F0E-721E685F0808}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15E25337-F0F2-4D93-8F0E-721E685F0808}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15E25337-F0F2-4D93-8F0E-721E685F0808}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CF935A4-A21F-4A6C-9EB4-79CB7A8915C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CF935A4-A21F-4A6C-9EB4-79CB7A8915C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CF935A4-A21F-4A6C-9EB4-79CB7A8915C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CF935A4-A21F-4A6C-9EB4-79CB7A8915C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D50968F5-861A-4DD6-AD96-7AC70F25182B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D50968F5-861A-4DD6-AD96-7AC70F25182B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D50968F5-861A-4DD6-AD96-7AC70F25182B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D50968F5-861A-4DD6-AD96-7AC70F25182B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3B84E8-A308-4A5E-AB7D-9CF5DE41EF45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3B84E8-A308-4A5E-AB7D-9CF5DE41EF45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3B84E8-A308-4A5E-AB7D-9CF5DE41EF45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3B84E8-A308-4A5E-AB7D-9CF5DE41EF45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

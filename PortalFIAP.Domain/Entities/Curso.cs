@@ -1,9 +1,9 @@
-using PortalFIAP.Domain.Commom;
-using PortalFIAP.Domain.Enums;
+using PortalFiap.Domain.Commom;
+using PortalFiap.Domain.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace PortalFIAP.Domain.Entities
+namespace PortalFiap.Domain.Entities
 {
     public class Curso : BaseEntity
     {

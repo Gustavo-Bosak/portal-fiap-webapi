@@ -1,6 +1,6 @@
-@PortalFIAP_HostAddress = http://localhost:5041
+@PortalFiap_HostAddress = http://localhost:5056
 
-GET {{PortalFIAP_HostAddress}}/weatherforecast/
+GET {{PortalFiap_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

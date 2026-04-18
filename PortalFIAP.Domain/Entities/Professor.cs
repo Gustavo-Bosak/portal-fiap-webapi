@@ -1,6 +1,6 @@
-using PortalFIAP.Domain.Commom;
+using PortalFiap.Domain.Commom;
 
-namespace PortalFIAP.Domain.Entities;
+namespace PortalFiap.Domain.Entities;
 
 public class Professor : Pessoa
 {

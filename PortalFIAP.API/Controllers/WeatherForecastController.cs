@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace PortalFIAP.Controllers;
+namespace PortalFiap.Controllers;
 
 [ApiController]
 [Route("[controller]")]

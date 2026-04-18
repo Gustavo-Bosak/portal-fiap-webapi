@@ -1,5 +1,5 @@
 
-namespace PortalFIAP.Domain.Enums;
+namespace PortalFiap.Domain.Enums;
 
 public enum NomeCurso 
 {
