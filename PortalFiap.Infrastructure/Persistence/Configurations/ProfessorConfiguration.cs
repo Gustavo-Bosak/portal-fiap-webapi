@@ -11,6 +11,7 @@ public class ProfessorConfiguration : IEntityTypeConfiguration<Professor>
         builder.ToTable("CP_Professores");
 
         builder.HasKey(p => p.Id);
+        builder.Property(p => p.Id).ValueGeneratedNever();
 
         builder.Property(p => p.Nome)
             .HasMaxLength(100)

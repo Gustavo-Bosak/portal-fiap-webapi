@@ -11,6 +11,7 @@ public class AlunoConfiguration : IEntityTypeConfiguration<Aluno>
         builder.ToTable("CP_Alunos");
 
         builder.HasKey(a => a.Id);
+        builder.Property(a => a.Id).ValueGeneratedNever();
 
         builder.Property(a => a.Nome)
             .HasMaxLength(100)
