@@ -27,5 +27,8 @@ public class PortalFiapContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PortalFiapContext).Assembly);
+
+        modelBuilder.Entity<Aluno>().UseTpcMappingStrategy();
+        modelBuilder.Entity<Professor>().UseTpcMappingStrategy();
     }
 }

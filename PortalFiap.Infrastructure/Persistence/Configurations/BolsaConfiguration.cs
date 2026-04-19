@@ -8,7 +8,7 @@ public class BolsaConfiguration : IEntityTypeConfiguration<Bolsa>
 {
     public void Configure(EntityTypeBuilder<Bolsa> builder)
     {
-        builder.ToTable("CP_bolsas");
+        builder.ToTable("CP_Bolsas");
 
         builder.HasKey(b => b.Id);
         

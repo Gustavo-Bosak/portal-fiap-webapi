@@ -10,7 +10,31 @@ public class AlunoConfiguration : IEntityTypeConfiguration<Aluno>
     {
         builder.ToTable("CP_Alunos");
 
-        // Matriculas navigation (one-to-many via Matricula.Aluno)
+        builder.HasKey(a => a.Id);
+
+        builder.Property(a => a.Nome)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(a => a.Email)
+            .HasMaxLength(150)
+            .IsRequired();
+
+        builder.Property(a => a.Telefone)
+            .HasMaxLength(20)
+            .IsRequired();
+
+        builder.Property(a => a.Active)
+            .IsRequired();
+
+        builder.Property(a => a.CreatedAt)
+            .IsRequired();
+
+        builder.HasOne(a => a.Endereco)
+            .WithMany()
+            .HasForeignKey("IdEndereco")
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasMany(a => a.Matriculas)
             .WithOne(m => m.Aluno)
             .HasForeignKey("IdAluno")
