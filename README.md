@@ -1,6 +1,6 @@
-# CP1 — Modelo Entidade-Relacionamento (MER) e Estrutura WebAPI (.NET)
+# Portal FIAP — Gestão Acadêmica
 
-## Integrantes do Grupo
+## Integrantes
 
 | Nome | RM |
 |-----|-----|
@@ -8,130 +8,60 @@
 | Gustavo Bosak | RM: 566315 |
 | Nikolas Brisola | RM: 564371 |
 
----
+## Domínio
 
-# Domínio do Projeto
+O sistema representa uma estrutura de **gestão acadêmica** para a FIAP, contemplando o cadastro e consulta de alunos, professores, cursos, turmas, matrículas, bolsas e endereços. O objetivo é modelar as entidades e seus relacionamentos, expondo os dados via uma Web API RESTful em .NET 10.
 
-O domínio escolhido foi **Portal FIAP (Gestão Acadêmica)**.
+## SGBD
 
-O sistema representa uma estrutura simplificada de gestão acadêmica contendo informações sobre:
+O banco de dados utilizado é o **SQLite**.
 
-- Pessoas da instituição
-- Alunos
-- Professores
-- Cursos
-- Turmas
-- Matrículas
-- Bolsas acadêmicas
-- Endereço das pessoas
+**Justificativa:** o SQLite não exige instalação nem configuração de servidor, o que garante que o projeto seja reproduzível em qualquer máquina sem dependências externas. Basta executar o comando de migration para ter o banco pronto.
 
-O objetivo é demonstrar **modelagem de entidades e relacionamentos** antes da implementação de banco de dados ou regras de negócio completas.
+## Estratégia de Herança
 
----
+A estratégia adotada é **TPC (Table Per Concrete Type)**.
 
-# Modelo Entidade-Relacionamento (MER)
+Cada classe concreta (`Aluno`, `Professor`) possui sua própria tabela no banco de dados, contendo todas as colunas — incluindo as herdadas da classe abstrata `Pessoa`. Não existe uma tabela compartilhada `Pessoas`.
 
-O diagrama MER encontra-se na pasta:
+**Justificativa:** o TPC evita JOINs desnecessários entre tabelas de hierarquia, simplifica consultas e garante que cada tabela seja autocontida. Como `Pessoa` é abstrata e nunca será instanciada diretamente, não há necessidade de uma tabela para ela.
 
-```
-/docs/mer.png
-```
+## Como Executar
 
-O modelo apresenta:
+```bash
+# 1. Restaurar dependências
+dotnet restore
 
-- **Entidades**
-- **Atributos principais**
-- **Chaves primárias (PK)**
-- **Relacionamentos**
-- **Cardinalidade**
-- **Opcionalidade**
+# 2. Aplicar migrations e criar o banco de dados
+dotnet ef database update --project PortalFiap.Infrastructure --startup-project PortalFIAP.API
 
----
+# 3. Executar a API
+dotnet run --project PortalFIAP.API
 
-# Entidades Modeladas
-
-As seguintes entidades foram modeladas no projeto:
-
-| Entidade | Descrição |
-|------|------|
-| BaseEntity | Classe base com propriedades comuns das entidades |
-| Pessoa | Classe abstrata com dados básicos de uma pessoa |
-| Aluno | Representa um aluno matriculado na instituição |
-| Professor | Representa um professor |
-| Curso | Cursos oferecidos pela instituição |
-| Turma | Turmas vinculadas a um curso |
-| Matricula | Registro de vínculo entre aluno e turma |
-| Endereco | Endereço associado a uma pessoa |
-| Bolsa | Bolsa de estudo associada a um aluno |
-
----
-
-# Relacionamentos
-
-Resumo dos relacionamentos modelados no MER:
-
-| Relacionamento | Tipo | Descrição |
-|---|---|---|
-Pessoa → Endereco | 1:1 | Uma pessoa possui um endereço |
-Matricula → Bolsa | 1:1 (Opcional) | Uma matricula pode possuir uma bolsa |
-Aluno → Matricula | 1:N | Um aluno pode possuir várias matrículas |
-Turma → Matricula | 1:N | Uma turma possui várias matrículas |
-Curso → Turma | 1:N | Um curso pode possuir várias turmas |
-Professor → Turma | N:N | Professores podem possuir múltiplas turmas |
-
----
-
-# Estratégia de Identificação
-
-Todas as entidades utilizam **GUID como chave primária (PK)**.
-
-Exemplo:
-
-```csharp
-public Guid Id { get; private set; }
+# 4. Acessar os endpoints
+# Health check: https://localhost:{port}/health
+# Alunos:      https://localhost:{port}/api/alunos
 ```
 
-Essa abordagem foi escolhida para garantir **identificadores únicos e independentes de banco de dados**.
+## Endpoints Disponíveis
 
----
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/health` | Health check da aplicação |
+| GET | `/api/alunos` | Lista todos os alunos |
+| GET | `/api/alunos/{id}` | Busca aluno por ID |
+| GET | `/api/cursos` | Lista todos os cursos |
+| GET | `/api/cursos/{id}` | Busca curso por ID |
+| GET | `/api/turmas` | Lista todas as turmas |
+| GET | `/api/turmas/{id}` | Busca turma por ID |
 
-# Estrutura do Repositório
+## Arquitetura
 
-```
-/
-├── docs
-│   └── mer.png
-│
-├── src
-│   └── Projeto.Api
-│
-└── README.md
-```
+O projeto segue **Clean Architecture** com quatro camadas:
 
-Descrição:
+- **PortalFIAP.Domain** — Entidades, enums e classes base. Sem dependências externas. Contém as regras de validação nas próprias entidades (métodos `Definir*`).
+- **PortalFiap.Infrastructure** — Camada de acesso a dados com Entity Framework Core e SQLite. Contém o `PortalFiapContext` e as configurações de mapeamento (`IEntityTypeConfiguration<T>`).
+- **PortalFIAP.Application** — Interfaces e implementações dos serviços de aplicação. Responsável por orquestrar consultas ao banco via `PortalFiapContext`.
+- **PortalFIAP.API** — Ponto de entrada da aplicação. Contém os controllers, configuração de DI, seed de dados e endpoints da API.
 
-| Pasta | Conteúdo |
-|------|------|
-| docs | Contém o diagrama MER |
-| src | Estrutura inicial do projeto WebAPI |
-| README | Documentação do projeto |
-
----
-
-# Objetivo Acadêmico
-
-Este projeto foi desenvolvido para praticar:
-
-- Modelagem de dados
-- Criação de MER
-- Estruturação de entidades em C#
-- Organização de projeto .NET
-- Relacionamentos entre entidades
-
----
-
-# Referência
-
-> “Faça o teu melhor, na condição que você tem, enquanto você não tem condições melhores, para fazer melhor ainda.”
-
-**Mario Sergio Cortella**
+**Fluxo de dependência:** API → Application → Infrastructure → Domain
