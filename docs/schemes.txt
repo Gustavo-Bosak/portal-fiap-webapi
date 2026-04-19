@@ -1,0 +1,96 @@
+-- Portal FIAP — Schema do Banco de Dados
+-- Estratégia: TPC (Table Per Concrete Type)
+-- SGBD: SQLite
+
+CREATE TABLE "CP_Cursos" (
+    "Id"           TEXT    NOT NULL PRIMARY KEY,
+    "Nome"         TEXT    NOT NULL,
+    "CargaHoraria" INTEGER NOT NULL,
+    "Active"       INTEGER NOT NULL,
+    "CreatedAt"    TEXT    NOT NULL
+);
+
+CREATE TABLE "CP_Enderecos" (
+    "Id"         TEXT    NOT NULL PRIMARY KEY,
+    "Logradouro" TEXT    NOT NULL,
+    "Estado"     TEXT    NOT NULL,
+    "Cidade"     TEXT    NOT NULL,
+    "Bairro"     TEXT    NOT NULL,
+    "Cep"        TEXT    NOT NULL,
+    "Active"     INTEGER NOT NULL,
+    "CreatedAt"  TEXT    NOT NULL
+);
+
+CREATE TABLE "CP_Turmas" (
+    "Id"        TEXT    NOT NULL PRIMARY KEY,
+    "NomeTurma" TEXT    NOT NULL,
+    "AnoLetivo" INTEGER NOT NULL,
+    "Semestre"  INTEGER NOT NULL,
+    "IdCurso"   TEXT    NOT NULL,
+    "Active"    INTEGER NOT NULL,
+    "CreatedAt" TEXT    NOT NULL,
+    FOREIGN KEY ("IdCurso") REFERENCES "CP_Cursos" ("Id") ON DELETE RESTRICT
+);
+
+-- TPC: colunas herdadas de Pessoa estão diretamente em CP_Alunos
+CREATE TABLE "CP_Alunos" (
+    "Id"         TEXT    NOT NULL PRIMARY KEY,
+    "Nome"       TEXT    NOT NULL,
+    "Email"      TEXT    NOT NULL,
+    "Telefone"   TEXT    NOT NULL,
+    "IdEndereco" TEXT    NOT NULL,
+    "Active"     INTEGER NOT NULL,
+    "CreatedAt"  TEXT    NOT NULL,
+    FOREIGN KEY ("IdEndereco") REFERENCES "CP_Enderecos" ("Id") ON DELETE RESTRICT
+);
+
+-- TPC: colunas herdadas de Pessoa estão diretamente em CP_Professores
+CREATE TABLE "CP_Professores" (
+    "Id"         TEXT    NOT NULL PRIMARY KEY,
+    "Nome"       TEXT    NOT NULL,
+    "Email"      TEXT    NOT NULL,
+    "Telefone"   TEXT    NOT NULL,
+    "IdEndereco" TEXT    NOT NULL,
+    "Active"     INTEGER NOT NULL,
+    "CreatedAt"  TEXT    NOT NULL,
+    FOREIGN KEY ("IdEndereco") REFERENCES "CP_Enderecos" ("Id") ON DELETE RESTRICT
+);
+
+CREATE TABLE "CP_Matriculas" (
+    "Id"        TEXT    NOT NULL PRIMARY KEY,
+    "IdAluno"   TEXT    NOT NULL,
+    "IdTurma"   TEXT    NOT NULL,
+    "Active"    INTEGER NOT NULL,
+    "CreatedAt" TEXT    NOT NULL,
+    FOREIGN KEY ("IdAluno") REFERENCES "CP_Alunos" ("Id") ON DELETE RESTRICT,
+    FOREIGN KEY ("IdTurma") REFERENCES "CP_Turmas" ("Id") ON DELETE RESTRICT
+);
+
+-- Tabela de junção N:N entre Professor e Turma
+CREATE TABLE "CP_Turma_Professores" (
+    "ProfessoresId" TEXT NOT NULL,
+    "TurmasId"      TEXT NOT NULL,
+    PRIMARY KEY ("ProfessoresId", "TurmasId"),
+    FOREIGN KEY ("ProfessoresId") REFERENCES "CP_Professores" ("Id") ON DELETE CASCADE,
+    FOREIGN KEY ("TurmasId")      REFERENCES "CP_Turmas"      ("Id") ON DELETE CASCADE
+);
+
+-- Relação 1:1 com Matricula (um aluno tem no máximo uma bolsa por matrícula)
+CREATE TABLE "CP_Bolsas" (
+    "Id"          TEXT    NOT NULL PRIMARY KEY,
+    "IdMatricula" TEXT    NOT NULL UNIQUE,
+    "Desconto"    TEXT    NOT NULL,
+    "Validade"    TEXT    NOT NULL,
+    "Active"      INTEGER NOT NULL,
+    "CreatedAt"   TEXT    NOT NULL,
+    FOREIGN KEY ("IdMatricula") REFERENCES "CP_Matriculas" ("Id") ON DELETE CASCADE
+);
+
+-- Índices
+CREATE INDEX "IX_CP_Alunos_IdEndereco"          ON "CP_Alunos"          ("IdEndereco");
+CREATE INDEX "IX_CP_Professores_IdEndereco"      ON "CP_Professores"     ("IdEndereco");
+CREATE INDEX "IX_CP_Turmas_IdCurso"              ON "CP_Turmas"          ("IdCurso");
+CREATE INDEX "IX_CP_Matriculas_IdAluno"          ON "CP_Matriculas"      ("IdAluno");
+CREATE INDEX "IX_CP_Matriculas_IdTurma"          ON "CP_Matriculas"      ("IdTurma");
+CREATE INDEX "IX_CP_Turma_Professores_TurmasId"  ON "CP_Turma_Professores" ("TurmasId");
+CREATE UNIQUE INDEX "IX_CP_Bolsas_IdMatricula"   ON "CP_Bolsas"          ("IdMatricula");
