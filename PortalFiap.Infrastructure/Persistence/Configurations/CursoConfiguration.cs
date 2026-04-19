@@ -13,7 +13,7 @@ public class CursoConfiguration : IEntityTypeConfiguration<Curso>
         builder.HasKey(c => c.Id);
         
         builder.Property(c => c.Nome)
-            .HasConversion<int>()
+            .HasConversion<String>()
             .IsRequired();
         
         builder.Ignore(c => c.Sigla);
