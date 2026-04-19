@@ -5,16 +5,16 @@ namespace PortalFiap.Domain.Entities
 {
     public class Bolsa : BaseEntity
     {
-        public int IdMatricula { get; private set; }
+        public Guid IdMatricula { get; private set; }
         public decimal Desconto { get; private set; }
         public DateOnly Validade { get; private set; }
         
         private Bolsa() { }
 
-        public Bolsa(int idMatricula, decimal desconto, DateOnly validade)
+        public Bolsa(Guid idMatricula, decimal desconto, DateOnly validade)
         {
-            if (idMatricula <= 0)
-                throw new Exception("O ID da matrícula deve ser um número positivo.");
+            if (idMatricula == Guid.Empty)
+                throw new Exception("O ID da matrícula não pode ser vazio.");
             
             IdMatricula = idMatricula;
             AtualizarDesconto(desconto);
