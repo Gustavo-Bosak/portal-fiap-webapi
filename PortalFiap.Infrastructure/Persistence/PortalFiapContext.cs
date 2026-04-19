@@ -5,7 +5,7 @@ namespace PortalFiap.Infrastructure.Persistence;
 
 public class PortalFiapContext : DbContext
 {
-    public PortalFiapContext(DbContextOptions<PortalFiapContext> options)
+    public PortalFiapContext(DbContextOptions<PortalFiapContext> options) : base(options)
     {
     }
     
