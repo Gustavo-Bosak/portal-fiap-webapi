@@ -8,6 +8,8 @@ public class Matricula : BaseEntity
     public Turma Turma { get; set; }
     public Bolsa? Bolsa { get; set; } 
 
+    private Matricula() { }
+
     public Matricula(Aluno aluno, Turma turma, Bolsa? bolsa)
     {
         if (aluno is null)

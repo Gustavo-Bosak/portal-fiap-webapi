@@ -6,6 +6,8 @@ public class Professor : Pessoa
 {
     public List<Turma> Turmas { get; private set;}
 
+    private Professor() : base() { }
+
     public Professor(string nome,
             string email,
             DateOnly dataNascimento,

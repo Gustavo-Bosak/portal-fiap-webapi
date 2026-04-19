@@ -11,6 +11,8 @@ public class Turma : BaseEntity
     public List<Matricula> Matriculas { get; set; }
     public List<Professor> Professores { get; set; }
 
+    private Turma() { }
+
     public Turma(string nomeTurma, int anoLetivo, int semestre, Curso curso, List<Matricula> matriculas, List<Professor> professores)
     {
         DefinirNomeTurma(nomeTurma);

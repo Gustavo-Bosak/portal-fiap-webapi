@@ -43,6 +43,8 @@ namespace PortalFiap.Domain.Entities
             }
         }
 
+        private Curso() { }
+
         public Curso(NomeCurso nome, int cargaHoraria)
         {
             DefinirNome(nome);

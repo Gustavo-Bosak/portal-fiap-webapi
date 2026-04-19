@@ -9,6 +9,8 @@ namespace PortalFiap.Domain.Entities
         public decimal Desconto { get; private set; }
         public DateOnly Validade { get; private set; }
         
+        private Bolsa() { }
+
         public Bolsa(int idMatricula, decimal desconto, DateOnly validade)
         {
             if (idMatricula <= 0)

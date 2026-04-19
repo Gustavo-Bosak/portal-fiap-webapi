@@ -11,6 +11,8 @@ public abstract class Pessoa : BaseEntity
     public string Telefone { get; private set; }
     public Endereco Endereco { get; private set; } // Alterado de string para Endereco
     
+    protected Pessoa() { }
+
     public Pessoa(string nome, string email, DateOnly dataNascimento, string telefone, Endereco endereco)
     {
         DefinirNome(nome);

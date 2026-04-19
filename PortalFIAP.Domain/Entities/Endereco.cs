@@ -11,6 +11,8 @@ namespace PortalFiap.Domain.Entities
         public string Bairro { get; private set; }
         public string Cep { get; private set; }
 
+        private Endereco() { }
+
         public Endereco(string logradouro, string estado, string cidade, string bairro, string cep)
         {
             DefinirLogradouro(logradouro);

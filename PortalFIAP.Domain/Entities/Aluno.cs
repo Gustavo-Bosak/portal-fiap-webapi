@@ -6,6 +6,8 @@ public class Aluno : Pessoa
 {
     public List<Matricula> Matriculas { get; private set;}
 
+    private Aluno() : base() { }
+
     public Aluno(string nome,
             string email,
             DateOnly dataNascimento,
