@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFiap.Domain", "Portal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFiap.Infrastructure", "PortalFiap.Infrastructure\PortalFiap.Infrastructure.csproj", "{E8BC4454-BDE5-41EC-A4E7-242873360005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalFIAP.Application", "PortalFIAP.Application\PortalFIAP.Application.csproj", "{E59D8379-6B17-4D60-BF76-879E5AE8FC60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{E8BC4454-BDE5-41EC-A4E7-242873360005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8BC4454-BDE5-41EC-A4E7-242873360005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BC4454-BDE5-41EC-A4E7-242873360005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59D8379-6B17-4D60-BF76-879E5AE8FC60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59D8379-6B17-4D60-BF76-879E5AE8FC60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59D8379-6B17-4D60-BF76-879E5AE8FC60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59D8379-6B17-4D60-BF76-879E5AE8FC60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

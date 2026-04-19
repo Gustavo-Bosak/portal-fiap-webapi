@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using PortalFIAP.Application.Interfaces;
+using PortalFIAP.Application.Services;
 using PortalFiap.Infrastructure.Persistence;
 
 namespace PortalFiap;
@@ -20,7 +22,12 @@ public class Program
                 options.UseSqlite(connectionString);
             }
         );
-        
+
+        // Dependency Injection Configuration
+        builder.Services.AddScoped<IAlunoService, AlunoService>();
+        builder.Services.AddScoped<ICursoService, CursoService>();
+        builder.Services.AddScoped<ITurmaService, TurmaService>();
+
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
 
