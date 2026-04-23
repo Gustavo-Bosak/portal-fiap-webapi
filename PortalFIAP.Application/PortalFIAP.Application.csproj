@@ -8,7 +8,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\PortalFiap.Domain\PortalFiap.Domain.csproj" />
-        <ProjectReference Include="..\PortalFiap.Infrastructure\PortalFiap.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
