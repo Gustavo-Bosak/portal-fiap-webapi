@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PortalFIAP.Application.DTO;
 using PortalFIAP.Application.Interfaces;
 
 namespace PortalFiap.Controllers;
@@ -29,5 +30,59 @@ public class CursosController : ControllerBase
             return NotFound();
 
         return Ok(curso);
+    }
+    
+    [HttpPost]
+    [ProducesResponseType(typeof(CursoResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create([FromBody] CursoRequest request)
+    {
+        try
+        {
+            var curso = _cursoService.Create(request);
+            return CreatedAtAction(nameof(GetById), new { id = curso.Id }, curso);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(typeof(CursoResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(Guid id, [FromBody] CursoRequest request)
+    {
+        try
+        {
+            var curso = _cursoService.Update(id, request);
+            return Ok(curso);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return ex.Message.Contains("não encontrado")
+                ? NotFound(new { message = ex.Message })
+                : BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        if (!await _cursoService.Delete(id))
+            return NotFound();
+
+        return NoContent();
     }
 }
