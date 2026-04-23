@@ -10,3 +10,8 @@ riderModule.iml
 *.db-wal
 *.sqlite
 *.sqlite3
+
+# AI
+CLAUDE.md
+.claude
+docs/superpowers
