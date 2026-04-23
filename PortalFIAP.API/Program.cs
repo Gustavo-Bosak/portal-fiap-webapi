@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using PortalFIAP.Application.Interfaces;
+using PortalFIAP.Application.Interfaces.Repositories;
 using PortalFIAP.Application.Services;
 using PortalFiap.Infrastructure.Persistence;
+using PortalFiap.Infrastructure.Persistence.Repositories;
 using PortalFiap.Seed;
 
 namespace PortalFiap;
@@ -28,6 +30,7 @@ public class Program
         builder.Services.AddScoped<IAlunoService, AlunoService>();
         builder.Services.AddScoped<ICursoService, CursoService>();
         builder.Services.AddScoped<ITurmaService, TurmaService>();
+        builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
