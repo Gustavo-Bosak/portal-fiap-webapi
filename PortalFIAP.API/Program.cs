@@ -30,6 +30,7 @@ public class Program
         builder.Services.AddScoped<IAlunoService, AlunoService>();
         builder.Services.AddScoped<ICursoService, CursoService>();
         builder.Services.AddScoped<ITurmaService, TurmaService>();
+        builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
         builder.Services.AddScoped<ICursoRepository, CursoRepository>();
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
