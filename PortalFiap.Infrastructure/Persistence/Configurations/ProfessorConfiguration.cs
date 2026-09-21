@@ -25,6 +25,11 @@ public class ProfessorConfiguration : IEntityTypeConfiguration<Professor>
             .HasMaxLength(20)
             .IsRequired();
 
+        // DataNasc é privada em Pessoa: sem este mapeamento o EF não persiste a data (Idade saía errada).
+        builder.Property<DateOnly>("DataNasc")
+            .HasColumnName("DataNascimento")
+            .IsRequired();
+
         builder.Property(p => p.Active)
             .IsRequired();
 

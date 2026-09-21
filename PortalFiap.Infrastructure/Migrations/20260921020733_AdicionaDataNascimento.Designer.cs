@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalFiap.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using PortalFiap.Infrastructure.Persistence;
 namespace PortalFiap.Infrastructure.Migrations
 {
     [DbContext(typeof(PortalFiapContext))]
-    partial class PortalFiapContextModelSnapshot : ModelSnapshot
+    [Migration("20260921020733_AdicionaDataNascimento")]
+    partial class AdicionaDataNascimento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.14");
