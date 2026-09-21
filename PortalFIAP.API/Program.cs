@@ -60,7 +60,11 @@ public class Program
 
         app.UsePortalSwagger();
 
-        app.UseHttpsRedirection();
+        // Em Development a API pode subir só em HTTP (perfil "http"); sem porta HTTPS o redirect só gera aviso.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseAuthorization();
 
