@@ -48,7 +48,8 @@ public class AlunoRepository : IAlunoRepository
 
     public async Task<bool> DeleteAsync(Guid id)
     {
-        var aluno = await _context.Alunos.FindAsync(id);
+        // Aluno já desativado conta como inexistente (404), igual ao Repository<T> genérico.
+        var aluno = await _context.Alunos.FirstOrDefaultAsync(a => a.Id == id && a.Active);
         if (aluno is null) return false;
 
         aluno.Deactivate();
