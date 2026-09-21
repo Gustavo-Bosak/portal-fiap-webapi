@@ -19,8 +19,14 @@ public class Program
         // Add services to the container.
 
         // Enums são serializados pelo nome (ex.: "AnaliseEDesenvolvimentoDeSistemas") em vez de número.
+        // RespectRequiredConstructorParameters: campo ausente no JSON dos DTOs (records) vira 400,
+        // em vez de assumir o valor padrão (ex.: curso sem "nome" virava ADS).
         builder.Services.AddControllers()
-            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+            .AddJsonOptions(o =>
+            {
+                o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                o.JsonSerializerOptions.RespectRequiredConstructorParameters = true;
+            });
 
         builder.Services.AddPortalExceptionHandling();
         builder.Services.AddPortalHealthChecks();
