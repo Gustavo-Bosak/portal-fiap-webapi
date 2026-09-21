@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.14" />
-        <ProjectReference Include="..\PortalFiap.Domain\PortalFiap.Domain.csproj" />
+        <ProjectReference Include="..\PortalFIAP.Domain\PortalFIAP.Domain.csproj" />
     </ItemGroup>
 
 </Project>

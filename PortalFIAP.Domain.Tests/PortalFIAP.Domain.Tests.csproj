@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\PortalFiap.Domain\PortalFiap.Domain.csproj" />
+        <ProjectReference Include="..\PortalFIAP.Domain\PortalFIAP.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
