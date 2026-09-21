@@ -47,7 +47,15 @@ public class Program
 
         var app = builder.Build();
 
-        await DatabaseSeeder.SeedAsync(app.Services);
+        try
+        {
+            await DatabaseSeeder.SeedAsync(app.Services);
+        }
+        catch (Exception ex)
+        {
+            // Banco indisponível no startup não derruba a API: o /health passa a reportar Unhealthy (503).
+            app.Logger.LogCritical(ex, "Falha ao aplicar migrations/seed; a API sobe com o banco indisponível.");
+        }
 
         // Configure the HTTP request pipeline.
         app.UseTraceIdLogging();

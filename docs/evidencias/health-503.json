@@ -1,27 +1,30 @@
-﻿HTTP/1.1 503 Service Unavailable
+# GET /health com ConnectionStrings__PortalFiapSQLiteConnection="Data Source=Z:/nao/existe/x.db" (variável de ambiente local, Development)
+# Código entregue, sem alterações: a API sobe, loga Critical e o check database fica Unhealthy.
+
+HTTP/1.1 503 Service Unavailable
 Content-Type: application/json; charset=utf-8
-Date: Mon, 21 Sep 2026 01:44:10 GMT
+Date: Mon, 21 Sep 2026 02:07:58 GMT
 Server: Kestrel
 Cache-Control: no-store, no-cache
 Expires: Thu, 01 Jan 1970 00:00:00 GMT
 Pragma: no-cache
 Transfer-Encoding: chunked
-X-Trace-Id: 0HNONG7AL0SGR:00000001
+X-Trace-Id: 0HNONGKK3MSTE:00000001
 
 {
   "status": "Unhealthy",
-  "totalDuration": 613.5125,
+  "totalDuration": 52.0514,
   "checks": [
     {
       "name": "self",
       "status": "Healthy",
-      "duration": 0.957,
+      "duration": 0.0276,
       "description": "API no ar."
     },
     {
       "name": "database",
       "status": "Unhealthy",
-      "duration": 517.249
+      "duration": 48.8791
     }
   ]
 }
