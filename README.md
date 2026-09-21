@@ -155,7 +155,7 @@ O detalhe de exceção só aparece em Development. Evidências: `docs/evidencias
 - Cada requisição abre um logger scope com o `TraceId` (`HttpContext.TraceIdentifier`) e devolve o header `X-Trace-Id`; o console exibe os scopes (`Logging:Console:IncludeScopes`).
 - `AlunoService` e `CursoService` registram início e sucesso (ou aviso de recurso não encontrado) de criação, atualização e remoção, com propriedades nomeadas (ex.: `{CursoId}`).
 - O `GlobalExceptionHandler` loga com o mesmo `traceId` (Warning para 4xx, Error para 500), que também vai no `ProblemDetails`.
-- Exemplo: `docs/evidencias/log-traceid.txt`.
+- Exemplo: `docs/evidencias/log-traceid.txt`. Print do Swagger: `docs/evidencias/swagger-print.png`.
 
 ## Testes
 

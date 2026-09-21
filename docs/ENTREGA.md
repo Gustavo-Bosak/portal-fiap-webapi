@@ -43,7 +43,7 @@ Com a API no ar (`http://localhost:5056`):
 - `problemdetails-404.json`
 - `log-traceid.txt`
 - `dotnet-test.txt`
-- *(recomendado)* print do Swagger UI — `docs/evidencias/swagger.png`
+- `swagger-print.png` (print do Swagger UI)
 
 ## 5. Publicação
 
