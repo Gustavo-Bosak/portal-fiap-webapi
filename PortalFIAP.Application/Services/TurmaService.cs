@@ -1,31 +1,22 @@
-using Microsoft.EntityFrameworkCore;
 using PortalFiap.Domain.Entities;
 using PortalFIAP.Application.Interfaces;
-using PortalFiap.Infrastructure.Persistence;
+using PortalFIAP.Application.Interfaces.Repositories;
 
 namespace PortalFIAP.Application.Services;
 
 public class TurmaService : ITurmaService
 {
-    private readonly PortalFiapContext _context;
+    private readonly ITurmaRepository _repository;
 
-    public TurmaService(PortalFiapContext context)
+    public TurmaService(ITurmaRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
-    public async Task<IEnumerable<Turma>> GetAll()
-    {
-        return await _context.Turmas.ToListAsync();
-    }
+    public async Task<IEnumerable<Turma>> GetAll() => await _repository.GetAllAsync();
 
-    public async Task<Turma?> GetById(Guid id)
-    {
-        return await _context.Turmas.FindAsync(id);
-    }
+    public async Task<Turma?> GetById(Guid id) => await _repository.GetByIdAsync(id);
 
-    public async Task<IEnumerable<Turma>> GetByCursoId(Guid cursoId)
-    {
-        return await _context.Turmas.Where(t => t.Curso.Id == cursoId).ToListAsync();
-    }
+    public async Task<IEnumerable<Turma>> GetByCursoId(Guid cursoId) =>
+        await _repository.GetByCursoIdAsync(cursoId);
 }

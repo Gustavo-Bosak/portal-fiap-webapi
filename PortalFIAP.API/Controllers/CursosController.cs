@@ -37,19 +37,8 @@ public class CursosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] CursoRequest request)
     {
-        try
-        {
-            var curso = _cursoService.Create(request);
-            return CreatedAtAction(nameof(GetById), new { id = curso.Id }, curso);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        var curso = await _cursoService.Create(request);
+        return CreatedAtAction(nameof(GetById), new { id = curso.Id }, curso);
     }
 
     [HttpPut("{id:guid}")]
@@ -58,21 +47,8 @@ public class CursosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] CursoRequest request)
     {
-        try
-        {
-            var curso = _cursoService.Update(id, request);
-            return Ok(curso);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return ex.Message.Contains("não encontrado")
-                ? NotFound(new { message = ex.Message })
-                : BadRequest(new { message = ex.Message });
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        var curso = await _cursoService.Update(id, request);
+        return Ok(curso);
     }
 
     [HttpDelete("{id:guid}")]
