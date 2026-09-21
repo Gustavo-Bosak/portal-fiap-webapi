@@ -56,6 +56,9 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+
+            // Raiz sem rota: leva direto ao Swagger UI.
+            app.MapGet("/", () => Results.Redirect("/swagger")).ExcludeFromDescription();
         }
 
         app.UsePortalSwagger();
