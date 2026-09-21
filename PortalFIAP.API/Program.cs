@@ -1,7 +1,9 @@
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using PortalFIAP.Application.Interfaces;
 using PortalFIAP.Application.Interfaces.Repositories;
 using PortalFIAP.Application.Services;
+using PortalFiap.Extensions;
 using PortalFiap.Infrastructure.Persistence;
 using PortalFiap.Infrastructure.Persistence.Repositories;
 using PortalFiap.Seed;
@@ -16,9 +18,13 @@ public class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
+        // Enums são serializados pelo nome (ex.: "AnaliseEDesenvolvimentoDeSistemas") em vez de número.
+        builder.Services.AddControllers()
+            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
-        
+        builder.Services.AddPortalExceptionHandling();
+        builder.Services.AddPortalHealthChecks();
+
         builder.Services.AddDbContext<PortalFiapContext>(options =>
             {
                 var connectionString = builder.Configuration.GetConnectionString("PortalFiapSQLiteConnection");
@@ -37,25 +43,30 @@ public class Program
 
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
+        builder.Services.AddPortalSwagger();
 
         var app = builder.Build();
 
         await DatabaseSeeder.SeedAsync(app.Services);
 
         // Configure the HTTP request pipeline.
+        app.UseTraceIdLogging();
+        app.UsePortalExceptionHandling();
+
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
         }
 
+        app.UsePortalSwagger();
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
 
-
         app.MapControllers();
 
-        app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
+        app.MapPortalHealthChecks();
 
         app.Run();
     }
