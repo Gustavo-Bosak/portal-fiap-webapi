@@ -1,0 +1,2 @@
+Aprovado!  – Com falha:     0, Aprovado:    71, Ignorado:     0, Total:    71, Duração: 80 ms - PortalFIAP.Domain.Tests.dll (net10.0)
+Aprovado!  – Com falha:     0, Aprovado:    15, Ignorado:     0, Total:    15, Duração: 115 ms - PortalFIAP.Application.Tests.dll (net10.0)
