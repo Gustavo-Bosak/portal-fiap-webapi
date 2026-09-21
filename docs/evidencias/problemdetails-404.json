@@ -1,0 +1,11 @@
+HTTP/1.1 404 Not Found
+Content-Type: application/problem+json
+Date: Mon, 21 Sep 2026 01:43:04 GMT
+Server: Kestrel
+Cache-Control: no-cache,no-store
+Expires: -1
+Pragma: no-cache
+Transfer-Encoding: chunked
+X-Trace-Id: 0HNONG6JNC6F8:00000001
+
+{"title":"Recurso não encontrado.","status":404,"detail":"Curso com id '00000000-0000-0000-0000-000000000001' não foi encontrado(a).","instance":"/api/cursos/00000000-0000-0000-0000-000000000001","traceId":"0HNONG6JNC6F8:00000001"}

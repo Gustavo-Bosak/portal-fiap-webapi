@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Date: Mon, 21 Sep 2026 01:43:04 GMT
+Server: Kestrel
+Cache-Control: no-store, no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Pragma: no-cache
+Transfer-Encoding: chunked
+X-Trace-Id: 0HNONG6JNC6F7:00000001
+
+{
+  "status": "Healthy",
+  "totalDuration": 9.4836,
+  "checks": [
+    {
+      "name": "self",
+      "status": "Healthy",
+      "duration": 1.0126,
+      "description": "API no ar."
+    },
+    {
+      "name": "database",
+      "status": "Healthy",
+      "duration": 5.7748
+    }
+  ]
+}
