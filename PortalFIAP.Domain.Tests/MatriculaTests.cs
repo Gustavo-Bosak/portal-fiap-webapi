@@ -15,7 +15,7 @@ public class MatriculaTests
             new List<Matricula>(), new List<Professor>());
 
     [Fact]
-    public void CriarMatricula_AlunoETurmaValidos_SemBolsa_DefineVinculos()
+    public void CriarMatricula_AlunoETurmaValidosSemBolsa_DefineVinculos()
     {
         // Arrange
         var aluno = CriarAluno();
