@@ -47,7 +47,7 @@ public class PessoaTests
     // BUG DE DOMINIO (reportado, nao corrigido): Pessoa.CalculaIdade compara
     // "data > today.AddYears(idade)" (invertido); o correto seria "data.AddYears(idade) > today".
     // Assim o aniversario ainda nao ocorrido nunca desconta 1 ano. Teste do comportamento correto pulado.
-    [Fact(Skip = "Bug de dominio: CalculaIdade nao desconta 1 ano quando o aniversario ainda nao ocorreu.")]
+    [Fact]
     public void Idade_AniversarioAindaNaoOcorreu_DescontaUmAno()
     {
         // Arrange: faz aniversario apenas amanha
@@ -74,7 +74,7 @@ public class PessoaTests
     }
 
     // Mesmo bug de CalculaIdade: a borda de 15 anos e 364 dias nao e rejeitada. Teste pulado.
-    [Fact(Skip = "Bug de dominio: CalculaIdade aceita 15 anos e 364 dias como 16.")]
+    [Fact]
     public void DefinirDataNasc_QuinzeAnosE364Dias_LancaDomainException()
     {
         // Arrange: falta 1 dia para completar 16 anos
