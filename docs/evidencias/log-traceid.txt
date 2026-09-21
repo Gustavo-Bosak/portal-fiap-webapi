@@ -1,0 +1,8 @@
+info: PortalFIAP.Application.Services.CursoService[0]
+      Atualizando curso 00000000-0000-0000-0000-000000000001
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+warn: PortalFIAP.Application.Services.CursoService[0]
+      Curso 00000000-0000-0000-0000-000000000001 não encontrado para atualização
+warn: PortalFiap.Exceptions.GlobalExceptionHandler[0]
+      Requisição rejeitada em PUT /api/cursos/00000000-0000-0000-0000-000000000001: 404 ResourceNotFoundException - Curso com id '00000000-0000-0000-0000-000000000001' não foi encontrado(a).. TraceId 0HNONG6JNC6F8:00000001
+info: PortalFIAP.Application.Services.AlunoService[0]
