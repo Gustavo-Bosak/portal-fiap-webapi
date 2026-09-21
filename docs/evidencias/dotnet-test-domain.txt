@@ -1,0 +1,8 @@
+$ dotnet test PortalFIAP.Domain.Tests
+Aprovado!  – Com falha:     0, Aprovado:    69, Ignorado:     2, Total:    71, Duração: 71 ms - PortalFIAP.Domain.Tests.dll (net10.0)
+
+$ dotnet test PortalFIAP.sln
+Aprovado!  – Com falha:     0, Aprovado:    69, Ignorado:     2, Total:    71, Duração: 84 ms - PortalFIAP.Domain.Tests.dll (net10.0)
+
+Obs.: 2 testes ignorados (Skip) documentam bug de dominio em Pessoa.CalculaIdade
+(comparacao invertida: aniversario ainda nao ocorrido nao desconta 1 ano).
