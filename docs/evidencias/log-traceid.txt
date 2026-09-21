@@ -1,8 +1,48 @@
+# Evidências de log estruturado com traceId (CP4)
+# Console do ASP.NET Core com Logging:Console:IncludeScopes=true. O scope "TraceId" é aberto por
+# UseTraceIdLogging com HttpContext.TraceIdentifier: é o mesmo valor do header X-Trace-Id e do campo
+# traceId do ProblemDetails. Mantidas só as entradas da aplicação (PortalFIAP.*); linhas "at ..." do
+# stack trace do 500 foram omitidas aqui (ficam no console) e nunca vão na resposta HTTP.
+
+## 1) Fluxo de escrita: POST /api/cursos (Development). Início e sucesso com o mesmo TraceId
+HTTP/1.1 201 Created
+X-Trace-Id: 0HNONGLEBMB12:00000001
+{"id":"15976c5d-552c-4245-a2b4-c307ed5c511f","nome":"EngenhariaDeSoftware","cargaHoraria":2400,"turmas":[]}
+
 info: PortalFIAP.Application.Services.CursoService[0]
+      => TraceId:0HNONGLEBMB12:00000001
+      Criando curso EngenhariaDeSoftware
+info: PortalFIAP.Application.Services.CursoService[0]
+      => TraceId:0HNONGLEBMB12:00000001
+      Curso 15976c5d-552c-4245-a2b4-c307ed5c511f criado com sucesso
+
+## 2) Recurso inexistente: PUT /api/cursos/{id} (Development). Warning no serviço e no handler; resposta 404 ProblemDetails
+HTTP/1.1 404 Not Found
+X-Trace-Id: 0HNONGLEBMB13:00000001
+{"title":"Recurso não encontrado.","status":404,"detail":"Curso com id '00000000-0000-0000-0000-000000000001' não foi encontrado(a).","instance":"/api/cursos/00000000-0000-0000-0000-000000000001","traceId":"0HNONGLEBMB13:00000001"}
+
+info: PortalFIAP.Application.Services.CursoService[0]
+      => TraceId:0HNONGLEBMB13:00000001
       Atualizando curso 00000000-0000-0000-0000-000000000001
-info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 warn: PortalFIAP.Application.Services.CursoService[0]
+      => TraceId:0HNONGLEBMB13:00000001
       Curso 00000000-0000-0000-0000-000000000001 não encontrado para atualização
 warn: PortalFiap.Exceptions.GlobalExceptionHandler[0]
-      Requisição rejeitada em PUT /api/cursos/00000000-0000-0000-0000-000000000001: 404 ResourceNotFoundException - Curso com id '00000000-0000-0000-0000-000000000001' não foi encontrado(a).. TraceId 0HNONG6JNC6F8:00000001
-info: PortalFIAP.Application.Services.AlunoService[0]
+      => TraceId:0HNONGLEBMB13:00000001
+      Requisição rejeitada em PUT /api/cursos/00000000-0000-0000-0000-000000000001: 404 ResourceNotFoundException - Curso com id '00000000-0000-0000-0000-000000000001' não foi encontrado(a).. TraceId 0HNONGLEBMB13:00000001
+
+## 3) Erro inesperado: POST /api/cursos com o banco bloqueado (Production). Handler loga em Error (fail); resposta 500 genérica, sem stack trace
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/problem+json
+X-Trace-Id: 0HNONGLIB39I5:00000001
+{"title":"Erro interno do servidor.","status":500,"detail":"Ocorreu um erro interno.","instance":"/api/cursos","traceId":"0HNONGLIB39I5:00000001"}
+
+info: PortalFIAP.Application.Services.CursoService[0]
+      => TraceId:0HNONGLIB39I5:00000001
+      Criando curso EngenhariaDeSoftware
+fail: PortalFiap.Exceptions.GlobalExceptionHandler[0]
+      => TraceId:0HNONGLIB39I5:00000001
+      Erro não tratado em POST /api/cursos. TraceId 0HNONGLIB39I5:00000001
+      Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+       ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 5: 'database is locked'.
+         --- End of inner exception stack trace ---

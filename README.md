@@ -36,7 +36,7 @@ dotnet restore
 dotnet run --project PortalFIAP.API --launch-profile http
 ```
 
-Com o perfil `http` a API sobe em `http://localhost:5056` (perfil `https`: `https://localhost:7117`). Em **Development** o banco é `app.db`; nos demais ambientes, `fiap.db`. Ambos ficam no diretório de execução e são ignorados pelo Git.
+Com o perfil `http` a API sobe em `http://localhost:5056` (perfil `https`: `https://localhost:7117`). Em **Development** o banco é `app.db`; nos demais ambientes, `fiap.db`. Ambos ficam no diretório de execução e são ignorados pelo Git. Se você tem um `app.db` criado antes da migration `AdicionaDataNascimento`, apague-o para o seed recriar os dados com a data de nascimento.
 
 | Recurso | URL |
 |---------|-----|
@@ -122,7 +122,7 @@ Repositórios específicos herdam de `Repository<T>` e sobrescrevem `Query()` pa
 
 ### Mapeamento de exceções (`GlobalExceptionHandler`)
 
-Todas as respostas de erro seguem a **RFC 7807** (`application/problem+json`) e trazem o `traceId`. Fora de Development, erros inesperados retornam mensagem genérica, sem stack trace nem detalhes de banco (o detalhe fica no log).
+Todas as respostas de erro, inclusive os 404 e os 400 de validação gerados pelo framework, seguem a **RFC 7807** (`application/problem+json`) e trazem o `traceId` (`HttpContext.TraceIdentifier`, o mesmo do header `X-Trace-Id` e dos logs). Fora de Development, erros inesperados retornam mensagem genérica, sem stack trace nem detalhes de banco (o detalhe fica no log).
 
 | Exceção | Status HTTP |
 |---------|-------------|
@@ -148,14 +148,25 @@ Endpoint único, com resposta JSON (status geral, duração e lista de checks).
 | Degraded | 200 |
 | Unhealthy | 503 |
 
-O detalhe de exceção só aparece em Development. Evidências: `docs/evidencias/health-200.json` e `docs/evidencias/health-503.json` (banco inacessível, gerado com uma connection string inválida apenas local).
+O detalhe de exceção só aparece em Development. Se o banco estiver indisponível na inicialização, a API sobe mesmo assim (a falha do migrate/seed é logada como Critical) e o `/health` passa a responder 503.
+
+Para reproduzir o 503 localmente (sem commitar nada):
+
+```bash
+# PowerShell
+$env:ConnectionStrings__PortalFiapSQLiteConnection = "Data Source=Z:/nao/existe/x.db"
+dotnet run --project PortalFIAP.API --launch-profile http
+# GET http://localhost:5056/health -> 503, check "database" Unhealthy
+```
+
+Evidências: `docs/evidencias/health-200.json` e `docs/evidencias/health-503.json`.
 
 ## Observabilidade (logs)
 
 - Cada requisição abre um logger scope com o `TraceId` (`HttpContext.TraceIdentifier`) e devolve o header `X-Trace-Id`; o console exibe os scopes (`Logging:Console:IncludeScopes`).
 - `AlunoService` e `CursoService` registram início e sucesso (ou aviso de recurso não encontrado) de criação, atualização e remoção, com propriedades nomeadas (ex.: `{CursoId}`).
 - O `GlobalExceptionHandler` loga com o mesmo `traceId` (Warning para 4xx, Error para 500), que também vai no `ProblemDetails`.
-- Exemplo: `docs/evidencias/log-traceid.txt`. Print do Swagger: `docs/evidencias/swagger-print.png`.
+- Exemplo em `docs/evidencias/log-traceid.txt`: POST com início e sucesso, 404 com Warning e 500 em Production com Error, todos com o mesmo `traceId` do header `X-Trace-Id` e do `ProblemDetails`. Print do Swagger: `docs/evidencias/swagger-print.png`.
 
 ## Testes
 
