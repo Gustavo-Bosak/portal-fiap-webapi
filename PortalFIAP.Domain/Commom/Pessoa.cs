@@ -1,3 +1,4 @@
+using PortalFiap.Domain.Exceptions;
 using PortalFiap.Domain.Entities; // Adicionado para enxergar a classe Endereco
 using System;
 
@@ -26,7 +27,7 @@ public abstract class Pessoa : BaseEntity
     public void DefinirNome(string newName)
     {
         if (string.IsNullOrWhiteSpace(newName))
-            throw new Exception("Nome não pode ser vazio.");
+            throw new DomainException("Nome não pode ser vazio.");
         
         Nome = newName;
     }
@@ -35,7 +36,7 @@ public abstract class Pessoa : BaseEntity
     public void DefinirEmail(string novoEmail)
     {
         if (string.IsNullOrWhiteSpace(novoEmail) || !novoEmail.Contains("@"))
-            throw new Exception("E-mail inválido.");
+            throw new DomainException("E-mail inválido.");
             
         Email = novoEmail;
     }
@@ -46,7 +47,7 @@ public abstract class Pessoa : BaseEntity
         var idade = CalculaIdade(novaData);
         
         if (idade < 16)
-            throw new Exception("Usuário deve ter pelo menos 16 anos.");
+            throw new DomainException("Usuário deve ter pelo menos 16 anos.");
 
         DataNasc = novaData;
     }
@@ -65,7 +66,7 @@ public abstract class Pessoa : BaseEntity
     public void DefinirTelefone(string novoTelefone)
     { 
         if (string.IsNullOrWhiteSpace(novoTelefone))
-            throw new Exception("Telefone não pode estar vazio.");
+            throw new DomainException("Telefone não pode estar vazio.");
             
         Telefone = novoTelefone;
     }

@@ -1,3 +1,4 @@
+using PortalFiap.Domain.Exceptions;
 using PortalFiap.Domain.Commom;
 
 namespace PortalFiap.Domain.Entities;
@@ -27,7 +28,7 @@ public class Turma : BaseEntity
     {
         if (string.IsNullOrWhiteSpace(nomeTurma))
         {
-            throw new Exception("Nome da turma não pode estar vazio.");
+            throw new DomainException("Nome da turma não pode estar vazio.");
         }
         NomeTurma = nomeTurma;
     }
@@ -37,7 +38,7 @@ public class Turma : BaseEntity
         var anoLimite = DateTime.Now.Year + 5;
         if (anoLetivo < 1990 || anoLetivo > anoLimite)
         {
-            throw new Exception($"Ano letivo precisa estar entre 1990 e {anoLimite}.");
+            throw new DomainException($"Ano letivo precisa estar entre 1990 e {anoLimite}.");
         }
         AnoLetivo = anoLetivo;
     }
@@ -46,7 +47,7 @@ public class Turma : BaseEntity
     {
         if (semestre is < 4 or > 8 )
         {
-            throw new Exception("Semestre precisa estar entre 4 e 8.");
+            throw new DomainException("Semestre precisa estar entre 4 e 8.");
         }
         Semestre = semestre;
     }

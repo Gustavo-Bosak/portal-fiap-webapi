@@ -1,3 +1,4 @@
+using PortalFiap.Domain.Exceptions;
 using PortalFiap.Domain.Commom;
 using PortalFiap.Domain.Enums;
 using System;
@@ -56,7 +57,7 @@ namespace PortalFiap.Domain.Entities
         public void DefinirNome(NomeCurso novoNome)
         {
             if (!Enum.IsDefined(typeof(NomeCurso), novoNome))
-                throw new Exception("Nome de curso inválido.");
+                throw new DomainException("Nome de curso inválido.");
 
             Nome = novoNome;
         }
@@ -65,7 +66,7 @@ namespace PortalFiap.Domain.Entities
         public void DefinirCargaHoraria(int novaCargaHoraria)
         {
             if (novaCargaHoraria <= 0)
-                throw new Exception("A carga horária deve ser um número positivo.");
+                throw new DomainException("A carga horária deve ser um número positivo.");
 
             CargaHoraria = novaCargaHoraria;
         }

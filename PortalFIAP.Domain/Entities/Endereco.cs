@@ -1,3 +1,4 @@
+using PortalFiap.Domain.Exceptions;
 using PortalFiap.Domain.Commom;
 using System;
 
@@ -27,35 +28,35 @@ namespace PortalFiap.Domain.Entities
         public void DefinirLogradouro(string novoLogradouro)
         {
             if (string.IsNullOrWhiteSpace(novoLogradouro))
-                throw new Exception("Logradouro não pode ser vazio.");
+                throw new DomainException("Logradouro não pode ser vazio.");
             Logradouro = novoLogradouro;
         }
 
         public void DefinirEstado(string novoEstado)
         {
             if (string.IsNullOrWhiteSpace(novoEstado))
-                throw new Exception("Estado não pode ser vazio.");
+                throw new DomainException("Estado não pode ser vazio.");
             Estado = novoEstado;
         }
 
         public void DefinirCidade(string novaCidade)
         {
             if (string.IsNullOrWhiteSpace(novaCidade))
-                throw new Exception("Cidade não pode ser vazia.");
+                throw new DomainException("Cidade não pode ser vazia.");
             Cidade = novaCidade;
         }
 
         public void DefinirBairro(string novoBairro)
         {
             if (string.IsNullOrWhiteSpace(novoBairro))
-                throw new Exception("Bairro não pode ser vazio.");
+                throw new DomainException("Bairro não pode ser vazio.");
             Bairro = novoBairro;
         }
 
         public void DefinirCep(string novoCep)
         {
             if (string.IsNullOrWhiteSpace(novoCep))
-                throw new Exception("CEP não pode ser vazio.");
+                throw new DomainException("CEP não pode ser vazio.");
             Cep = novoCep;
         }
     }
