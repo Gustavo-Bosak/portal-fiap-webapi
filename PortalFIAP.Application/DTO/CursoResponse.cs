@@ -7,8 +7,12 @@ public record CursoResponse(
     Guid Id,
     NomeCurso Nome,
     int CargaHoraria,
-    List<Turma> Turmas
+    List<TurmaResumoResponse> Turmas
 )
 {
-    public static CursoResponse FromDomain(Curso curso) => new CursoResponse(curso.Id, curso.Nome, curso.CargaHoraria, curso.Turmas);
+    public static CursoResponse FromDomain(Curso curso) => new CursoResponse(
+        curso.Id,
+        curso.Nome,
+        curso.CargaHoraria,
+        (curso.Turmas ?? new List<Turma>()).Where(t => t.Active).Select(TurmaResumoResponse.FromDomain).ToList());
 }

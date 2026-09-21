@@ -1,4 +1,5 @@
 using PortalFiap.Domain.Exceptions;
+using PortalFiap.Domain.Exceptions;
 using PortalFiap.Domain.Commom;
 
 namespace PortalFiap.Domain.Entities;
@@ -24,7 +25,7 @@ public class Turma : BaseEntity
         Professores = professores;
     }
 
-    private void DefinirNomeTurma(string nomeTurma)
+    public void DefinirNomeTurma(string nomeTurma)
     {
         if (string.IsNullOrWhiteSpace(nomeTurma))
         {
@@ -33,7 +34,7 @@ public class Turma : BaseEntity
         NomeTurma = nomeTurma;
     }
 
-    private void DefinirAnoLetivo(int anoLetivo)
+    public void DefinirAnoLetivo(int anoLetivo)
     {
         var anoLimite = DateTime.Now.Year + 5;
         if (anoLetivo < 1990 || anoLetivo > anoLimite)
@@ -43,7 +44,7 @@ public class Turma : BaseEntity
         AnoLetivo = anoLetivo;
     }
 
-    private void DefinirSemestre(int semestre)
+    public void DefinirSemestre(int semestre)
     {
         if (semestre is < 4 or > 8 )
         {
