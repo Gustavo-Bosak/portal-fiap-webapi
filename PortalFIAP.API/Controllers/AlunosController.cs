@@ -9,7 +9,6 @@ namespace PortalFiap.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Produces("application/json")]
 public class AlunosController : ControllerBase
 {
     private readonly IAlunoService _alunoService;
@@ -26,7 +25,7 @@ public class AlunosController : ControllerBase
     /// <response code="200">Lista de alunos retornada com sucesso.</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<AlunoResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> GetAll()
     {
         var alunos = await _alunoService.GetAllAsync();
@@ -41,8 +40,8 @@ public class AlunosController : ControllerBase
     /// <response code="404">Aluno não encontrado.</response>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(AlunoResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var aluno = await _alunoService.GetByIdAsync(id);
@@ -63,8 +62,8 @@ public class AlunosController : ControllerBase
     /// <response code="400">Dados inválidos.</response>
     [HttpPost]
     [ProducesResponseType(typeof(AlunoResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Create([FromBody] AlunoRequest request)
     {
         var aluno = await _alunoService.CreateAsync(request);
@@ -81,15 +80,12 @@ public class AlunosController : ControllerBase
     /// <response code="404">Aluno não encontrado.</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(AlunoResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Update(Guid id, [FromBody] AlunoRequest request)
     {
         var aluno = await _alunoService.UpdateAsync(id, request);
-        if (aluno is null)
-            return NotFound();
-
         return Ok(aluno);
     }
 
@@ -101,8 +97,8 @@ public class AlunosController : ControllerBase
     /// <response code="404">Aluno não encontrado.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var deleted = await _alunoService.DeleteAsync(id);

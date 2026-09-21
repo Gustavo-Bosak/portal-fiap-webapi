@@ -9,7 +9,6 @@ namespace PortalFiap.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Produces("application/json")]
 public class CursosController : ControllerBase
 {
     private readonly ICursoService _cursoService;
@@ -25,7 +24,7 @@ public class CursosController : ControllerBase
     /// <response code="200">Lista de cursos retornada com sucesso.</response>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<CursoResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> GetAll()
     {
         var cursos = await _cursoService.GetAll();
@@ -40,8 +39,8 @@ public class CursosController : ControllerBase
     /// <response code="404">Curso não encontrado.</response>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(CursoResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var curso = await _cursoService.GetById(id);
@@ -59,8 +58,8 @@ public class CursosController : ControllerBase
     /// <response code="400">Dados inválidos (nome inexistente ou carga horária não positiva).</response>
     [HttpPost]
     [ProducesResponseType(typeof(CursoResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Create([FromBody] CursoRequest request)
     {
         var curso = await _cursoService.Create(request);
@@ -77,9 +76,9 @@ public class CursosController : ControllerBase
     /// <response code="404">Curso não encontrado.</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(CursoResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Update(Guid id, [FromBody] CursoRequest request)
     {
         var curso = await _cursoService.Update(id, request);
@@ -94,8 +93,8 @@ public class CursosController : ControllerBase
     /// <response code="404">Curso não encontrado.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Delete(Guid id)
     {
         if (!await _cursoService.Delete(id))

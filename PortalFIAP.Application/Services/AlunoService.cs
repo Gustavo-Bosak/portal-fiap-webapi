@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 using PortalFiap.Domain.Entities;
+using PortalFiap.Domain.Exceptions;
 using PortalFIAP.Application.DTO;
 using PortalFIAP.Application.Interfaces;
 using PortalFIAP.Application.Interfaces.Repositories;
@@ -55,7 +56,7 @@ public class AlunoService : IAlunoService
         return ToResponse(aluno);
     }
 
-    public async Task<AlunoResponse?> UpdateAsync(Guid id, AlunoRequest request)
+    public async Task<AlunoResponse> UpdateAsync(Guid id, AlunoRequest request)
     {
         _logger.LogInformation("Atualizando aluno {AlunoId}", id);
 
@@ -63,7 +64,7 @@ public class AlunoService : IAlunoService
         if (aluno is null)
         {
             _logger.LogWarning("Aluno {AlunoId} não encontrado para atualização", id);
-            return null;
+            throw new ResourceNotFoundException("Aluno", id);
         }
 
         aluno.DefinirNome(request.Nome);

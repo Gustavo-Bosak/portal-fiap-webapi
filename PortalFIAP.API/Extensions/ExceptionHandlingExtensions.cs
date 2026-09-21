@@ -8,7 +8,11 @@ public static class ExceptionHandlingExtensions
     public static IServiceCollection AddPortalExceptionHandling(this IServiceCollection services)
     {
         services.AddExceptionHandler<GlobalExceptionHandler>();
-        services.AddProblemDetails();
+        // ProblemDetails gerados pelo framework (404 sem corpo, 400 de validação) usam o mesmo traceId
+        // do GlobalExceptionHandler e dos logs (HttpContext.TraceIdentifier), em vez do Activity.Id.
+        services.AddProblemDetails(options =>
+            options.CustomizeProblemDetails = context =>
+                context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier);
         return services;
     }
 

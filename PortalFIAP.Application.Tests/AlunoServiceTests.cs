@@ -58,17 +58,17 @@ public class AlunoServiceTests
     }
 
     [Fact]
-    public async Task UpdateAsync_AlunoInexistente_RetornaNullENaoAtualiza()
+    public async Task UpdateAsync_AlunoInexistente_LancaResourceNotFoundENaoAtualiza()
     {
         // Arrange
         var id = Guid.NewGuid();
         _repository.Setup(r => r.GetByIdAsync(id)).ReturnsAsync((Aluno?)null);
 
         // Act
-        var response = await _service.UpdateAsync(id, RequestValido());
+        var act = () => _service.UpdateAsync(id, RequestValido());
 
         // Assert
-        Assert.Null(response);
+        await Assert.ThrowsAsync<ResourceNotFoundException>(act);
         _repository.Verify(r => r.UpdateAsync(It.IsAny<Aluno>()), Times.Never);
     }
 

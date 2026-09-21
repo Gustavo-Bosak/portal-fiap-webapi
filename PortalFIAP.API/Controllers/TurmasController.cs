@@ -9,7 +9,6 @@ namespace PortalFiap.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Produces("application/json")]
 public class TurmasController : ControllerBase
 {
     private readonly ITurmaService _turmaService;
@@ -25,7 +24,7 @@ public class TurmasController : ControllerBase
     /// <response code="200">Lista de turmas retornada com sucesso.</response>
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<TurmaResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> GetAll()
     {
         var turmas = await _turmaService.GetAll();
@@ -40,8 +39,8 @@ public class TurmasController : ControllerBase
     /// <response code="404">Turma não encontrada.</response>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(TurmaResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var turma = await _turmaService.GetById(id);
@@ -63,9 +62,9 @@ public class TurmasController : ControllerBase
     /// <response code="404">Curso informado não encontrado.</response>
     [HttpPost]
     [ProducesResponseType(typeof(TurmaResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Create([FromBody] TurmaRequest request)
     {
         var turma = await _turmaService.Create(request);
@@ -82,9 +81,9 @@ public class TurmasController : ControllerBase
     /// <response code="404">Turma ou curso não encontrado.</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(TurmaResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Update(Guid id, [FromBody] TurmaRequest request)
     {
         var turma = await _turmaService.Update(id, request);
@@ -99,8 +98,8 @@ public class TurmasController : ControllerBase
     /// <response code="404">Turma não encontrada.</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound, "application/problem+json")]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError, "application/problem+json")]
     public async Task<IActionResult> Delete(Guid id)
     {
         if (!await _turmaService.Delete(id))
