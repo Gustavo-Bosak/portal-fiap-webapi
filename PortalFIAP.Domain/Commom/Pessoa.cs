@@ -58,7 +58,7 @@ public abstract class Pessoa : BaseEntity
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
         var idade = today.Year - data.Year;
-        if (data > today.AddYears(idade))idade--;
+        if (data.AddYears(idade) > today) idade--;
         return idade;
     }
 
